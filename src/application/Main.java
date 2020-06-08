@@ -35,8 +35,16 @@ public class Main {
                             String rd = Utils.returnRegisterNumber(lineItems[1]);
                             String rs = lineItems.length > 2 ? Utils.returnRegisterNumber(lineItems[2]) : "00000";
                             String rt = lineItems.length > 3 ? Utils.returnRegisterNumber(lineItems[3]) : "00000";
-                            String funct = RFormat.getInstance().get(lineItems[0]);
+                            String funct = Opcode.getInstance().get(lineItems[0]);
                             String shamt = "00000";
+
+                            // if (lineItems[0].equals("srl")) {
+                            //     System.out.println(rd);
+                            //     System.out.println(rs);
+                            //     System.out.println(rt);
+                            //     System.out.println(funct);
+                            //     System.out.println(shamt);
+                            // }
 
                             if (lineItems.length == 3) {
                                 String temp = rs;
@@ -81,13 +89,13 @@ public class Main {
                             break;
                         }
                         case "j": {
-                            binary += JFormat.getInstance().get(lineItems[0]); // Opcode
+                            binary += Opcode.getInstance().get(lineItems[0]); // Opcode
                             binary += Utils.convert(Utils.tryParseInt(lineItems[1]), 26) + "\n"; // Address
 
                             break;
                         }
                         case "i": {
-                            binary += IFormat.getInstance().get(lineItems[0]); // Opcode
+                            binary += Opcode.getInstance().get(lineItems[0]); // Opcode
 
                             String operatorsBinary = ""; // $r, $t, etc
                             String constantBinary = ""; // valor constante

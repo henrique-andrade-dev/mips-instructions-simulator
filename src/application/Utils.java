@@ -27,7 +27,8 @@ public class Utils {
 					return Integer.toBinaryString(tValues[lineItem.charAt(i + 1)]);
 				}
 				default:
-					break;
+					return convert(Integer.parseInt(Character.toString(lineItem.charAt(i))), 5);
+					// return Integer.toBinaryString(Integer.parseInt(Character.toString(lineItem.charAt(i))));
 			}
 		}
 

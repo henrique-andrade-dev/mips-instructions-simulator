@@ -1,7 +1,13 @@
 package application;
 
 public class Mips {
+	private String[] _registers;
 
-	String[] registers = new String[32];
+	public Mips() {
+		this._registers = new String[32];
+	}
+	
+	
+
 	
 }
