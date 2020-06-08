@@ -38,13 +38,13 @@ public class Main {
                             String funct = Opcode.getInstance().get(lineItems[0]);
                             String shamt = "00000";
 
-                            // if (lineItems[0].equals("srl")) {
-                            //     System.out.println(rd);
-                            //     System.out.println(rs);
-                            //     System.out.println(rt);
-                            //     System.out.println(funct);
-                            //     System.out.println(shamt);
-                            // }
+                            if (lineItems[0].equals("srl")) {
+                                System.out.println("rd: " + rd);
+                                System.out.println("rs: " + rs);
+                                System.out.println("rt: " + rt);
+                                System.out.println("funct: " + funct);
+                                System.out.println("shamt: " + shamt);
+                            }
 
                             if (lineItems.length == 3) {
                                 String temp = rs;
@@ -77,6 +77,10 @@ public class Main {
                                     String temp = shamt;
                                     rs = rd;
                                     rd = temp;
+                                    break;
+                                }
+                                case "srl": {
+                                    shamt = Utils.convert(10, 5);
                                     break;
                                 }
                                 default: {
