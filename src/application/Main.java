@@ -64,7 +64,7 @@ public class Main {
 
                                     break;
                                 }
-                                case "srt": {
+                                case "srl": {
                                     rt = Utils.convert(Utils.tryParseInt(lineItems[3]), 5);
                                     String temp = shamt;
                                     shamt = rt;
@@ -79,10 +79,6 @@ public class Main {
                                     rd = temp;
                                     break;
                                 }
-                                case "srl": {
-                                    shamt = Utils.convert(10, 5);
-                                    break;
-                                }
                                 default: {
                                     break;
                                 }
@@ -94,7 +90,9 @@ public class Main {
                         }
                         case "j": {
                             binary += Opcode.getInstance().get(lineItems[0]); // Opcode
-                            binary += Utils.convert(Utils.tryParseInt(lineItems[1]), 26) + "\n"; // Address
+                            binary += Utils.convert((Utils.tryParseInt(lineItems[1])), 26) + "\n"; // Address
+
+                            System.out.println();
 
                             break;
                         }
