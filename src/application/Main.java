@@ -14,11 +14,6 @@ public class Main {
             File inputFile = new File("./assets/input.txt");
             Scanner myReader = new Scanner(inputFile);
 
-            FormatTypes formatTypes = new FormatTypes();
-            RFormat rFormat = new RFormat();
-            IFormat iFormat = new IFormat();
-            JFormat jFormat = new JFormat();
-
             String binary = "";
 
             while (myReader.hasNextLine()) {
@@ -27,7 +22,7 @@ public class Main {
                 lineItems = Arrays.stream(lineItems).filter(s -> !s.isEmpty()).toArray(String[]::new);
 
                 if (lineItems.length > 0) {
-                    switch (formatTypes.get(lineItems[0])) {
+                    switch (FormatType.getInstance().get(lineItems[0])) {
                         case "r": {
                             binary += "000000"; // Opcode
                             // Opcode, rs, rt, rd, sa, funct
@@ -40,7 +35,7 @@ public class Main {
                             String rd = Utils.returnRegisterNumber(lineItems[1]);
                             String rs = lineItems.length > 2 ? Utils.returnRegisterNumber(lineItems[2]) : "00000";
                             String rt = lineItems.length > 3 ? Utils.returnRegisterNumber(lineItems[3]) : "00000";
-                            String funct = rFormat.get(lineItems[0]);
+                            String funct = RFormat.getInstance().get(lineItems[0]);
                             String shamt = "00000";
 
                             if (lineItems.length == 3) {
@@ -86,13 +81,13 @@ public class Main {
                             break;
                         }
                         case "j": {
-                            binary += jFormat.get(lineItems[0]); // Opcode
+                            binary += JFormat.getInstance().get(lineItems[0]); // Opcode
                             binary += Utils.convert(Utils.tryParseInt(lineItems[1]), 26) + "\n"; // Address
 
                             break;
                         }
                         case "i": {
-                            binary += iFormat.get(lineItems[0]); // Opcode
+                            binary += IFormat.getInstance().get(lineItems[0]); // Opcode
 
                             String operatorsBinary = ""; // $r, $t, etc
                             String constantBinary = ""; // valor constante
@@ -134,7 +129,7 @@ public class Main {
             System.out.println(binary);
 
             try {
-                FileWriter outputFile = new FileWriter("./assets/output.txt");
+                FileWriter outputFile = new FileWriter("./assets/instructions.txt");
 
                 outputFile.write(binary);
                 outputFile.close();
