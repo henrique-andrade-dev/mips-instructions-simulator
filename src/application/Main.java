@@ -9,8 +9,8 @@ import java.util.Scanner;
 
 public class Main {
 
-	public static void main(String[] args) {
-		try {
+    public static void main(String[] args) {
+        try {
             File inputFile = new File("./assets/input.txt");
             Scanner myReader = new Scanner(inputFile);
 
@@ -38,14 +38,6 @@ public class Main {
                             String funct = Opcode.getInstance().get(lineItems[0]);
                             String shamt = "00000";
 
-                            if (lineItems[0].equals("srl")) {
-                                System.out.println("rd: " + rd);
-                                System.out.println("rs: " + rs);
-                                System.out.println("rt: " + rt);
-                                System.out.println("funct: " + funct);
-                                System.out.println("shamt: " + shamt);
-                            }
-
                             if (lineItems.length == 3) {
                                 String temp = rs;
 
@@ -56,7 +48,7 @@ public class Main {
 
                             switch (lineItems[0]) {
                                 case "sll": {
-                                    rt = Utils.convert(Utils.tryParseInt(lineItems[3]), 5);
+                                    rt = Utils.returnBinaryString(lineItems[3], 5);
                                     String temp = shamt;
                                     shamt = rt;
                                     rt = rs;
@@ -65,7 +57,7 @@ public class Main {
                                     break;
                                 }
                                 case "srl": {
-                                    rt = Utils.convert(Utils.tryParseInt(lineItems[3]), 5);
+                                    rt = Utils.returnBinaryString(lineItems[3], 5);
                                     String temp = shamt;
                                     shamt = rt;
                                     rt = rs;
@@ -90,7 +82,7 @@ public class Main {
                         }
                         case "j": {
                             binary += Opcode.getInstance().get(lineItems[0]); // Opcode
-                            binary += Utils.convert((Utils.tryParseInt(lineItems[1])), 26) + "\n"; // Address
+                            binary += Utils.returnBinaryString(lineItems[1], 26) + "\n"; // Address
 
                             System.out.println();
 
@@ -106,7 +98,7 @@ public class Main {
                                 if (Utils.checkIfRegister(lineItems[i])) {
                                     operatorsBinary += Utils.returnRegisterNumber(lineItems[i]);
                                 } else {
-                                    constantBinary += Utils.convert(Utils.tryParseInt(lineItems[i]), 16);
+                                    constantBinary += Utils.returnBinaryString(lineItems[i], 16);
                                 }
                             }
 
@@ -151,5 +143,5 @@ public class Main {
             System.out.println("An error occurred.");
             e.printStackTrace();
         }
-	}
+    }
 }

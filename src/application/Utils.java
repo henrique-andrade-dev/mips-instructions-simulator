@@ -10,40 +10,37 @@ public class Utils {
 	}
 
 	public static String returnRegisterNumber(String lineItem) {
-		for (int i = 0; i < lineItem.length(); i += 1) {
-			switch (lineItem.charAt(i)) {
-				case 'r': {
-					int[] sValues = { 16, 17, 18, 19, 20, 21, 22, 23 };
-					int indexValue = Integer.parseInt(lineItem.replaceAll("\\D+", ""));
-					return Integer.toBinaryString(sValues[indexValue]);
-				}
-				case 's': {
-					int[] sValues = { 16, 17, 18, 19, 20, 21, 22, 23 };
-					int indexValue = Integer.parseInt(lineItem.replaceAll("\\D+", ""));
-					return Integer.toBinaryString(sValues[indexValue]);
-				}
-				case 't': {
-					int[] tValues = { 8, 9, 10, 11, 12, 13, 14, 15, 24, 25 };
-					return Integer.toBinaryString(tValues[lineItem.charAt(i + 1)]);
-				}
-				default:
-					return convert(Integer.parseInt(Character.toString(lineItem.charAt(i))), 5);
-					// return Integer.toBinaryString(Integer.parseInt(Character.toString(lineItem.charAt(i))));
-			}
-		}
+		switch (lineItem.charAt(0)) {
+			case 'r': {
+				int[] sValues = { 16, 17, 18, 19, 20, 21, 22, 23 };
+				int indexValue = Integer.parseInt(lineItem.replaceAll("\\D+", ""));
 
-		return "";
+				return Integer.toBinaryString(sValues[indexValue]);
+			}
+			case 's': {
+				int[] sValues = { 16, 17, 18, 19, 20, 21, 22, 23 };
+				int indexValue = Integer.parseInt(lineItem.replaceAll("\\D+", ""));
+
+				return Integer.toBinaryString(sValues[indexValue]);
+			}
+			case 't': {
+				int[] tValues = { 8, 9, 10, 11, 12, 13, 14, 15, 24, 25 };
+
+				return Integer.toBinaryString(tValues[lineItem.charAt(1)]);
+			}
+			default:
+				return returnBinaryString(Character.toString(lineItem.charAt(0)), 5);
+		}
 	}
 
-	public static String convert(int input, int max) {
-		String binaryString = Integer.toBinaryString(input);
-		String returnBinary = "";
+	public static String returnBinaryString(String input, int max) {
+		String binaryString = Integer.toBinaryString(Integer.parseInt(input));
+		String prefix = "";
 
 		for (int i = 0; i < max - binaryString.length(); i += 1) {
-			returnBinary += 0;
+			prefix += "0";
 		}
 
-		returnBinary += binaryString;
-		return returnBinary;
+		return prefix + binaryString;
 	}
 }
