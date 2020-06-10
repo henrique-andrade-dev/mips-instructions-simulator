@@ -2,25 +2,23 @@ package application;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.Scanner;
 
 public class Decoder {
     private String _binaryInstructions;
-    private File _inputFile;
+
+    public static final String PATH_INSTRUCTIONS_FILE = "./assets/instructions.txt";
 
     public Decoder(File inputFile) throws FileNotFoundException {
-        this._inputFile = inputFile;
-        this._binaryInstructions = setBinaryInstructions();
+        this._binaryInstructions = setBinaryInstructions(inputFile);
     }
 
-    private String setBinaryInstructions() throws FileNotFoundException {
+    private String setBinaryInstructions(File inputFile) throws FileNotFoundException {
         String binary = "";
 
         try {
-            Scanner myReader = new Scanner(this._inputFile);
+            Scanner myReader = new Scanner(inputFile);
 
             while (myReader.hasNextLine()) {
                 String line = myReader.nextLine();
@@ -131,7 +129,7 @@ public class Decoder {
             }
 
             myReader.close();
-            
+
             return binary;
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -142,18 +140,5 @@ public class Decoder {
 
     public String getBinaryInstructions() {
         return this._binaryInstructions;
-    }
-
-    public void writeFile() {
-        try {
-            FileWriter outputFile = new FileWriter("./assets/instructions.txt");
-
-            outputFile.write(this._binaryInstructions);
-            outputFile.close();
-
-            System.out.println("\"instructions.txt\" file created."); // Logger
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 }

@@ -1,6 +1,19 @@
 package application;
 
+import java.io.FileWriter;
+import java.io.IOException;
+
 public class Utils {
+	// private static final Utils INSTANCE = new Utils();
+
+	// public Utils() { // If using Singleton make it private
+		// Initialize something
+	// }
+
+	// public static Utils getInstance() {
+	// return INSTANCE;
+	// }
+
 	public static int tryParseInt(String lineItem) {
 		return lineItem.matches("\\d+") ? Integer.parseInt(lineItem) : -1;
 	}
@@ -42,5 +55,18 @@ public class Utils {
 		}
 
 		return prefix + binaryString;
+	}
+
+	public static void writeFile(String pathFile, String content) {
+		try {
+			FileWriter outputFile = new FileWriter(pathFile);
+
+			outputFile.write(content);
+			outputFile.close();
+
+			System.out.println("\"instructions.txt\" file created."); // Implement Logger
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }
