@@ -7,7 +7,7 @@ public class Utils {
 	// private static final Utils INSTANCE = new Utils();
 
 	// public Utils() { // If using Singleton make it private
-		// Initialize something
+	// Initialize something
 	// }
 
 	// public static Utils getInstance() {
@@ -64,7 +64,7 @@ public class Utils {
 			outputFile.write(content);
 			outputFile.close();
 
-			System.out.println("\"instructions.txt\" file created."); // Implement Logger
+			System.out.println(String.format("\"%s\" file created.", pathFile));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
