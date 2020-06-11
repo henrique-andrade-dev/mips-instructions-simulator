@@ -2,6 +2,8 @@ package application;
 
 import java.util.HashMap;
 
+import exceptions.CustomException;
+
 public class Mips {
 	private HashMap<String, String> _registers;
 	private HashMap<String, String> _memory;
@@ -46,6 +48,11 @@ public class Mips {
 		return this._registers;
 	}
 
+	public String getValueRegister(String register) throws CustomException {
+		if(isRegisterValid(register)) return this._registers.get(register);
+		throw new CustomException(String.format("O registrador %s é inválido", register)); // Inserir qual registrador
+	}
+
 	public HashMap<String, String> getMemory() {
 		return this._memory;
 	}
@@ -61,7 +68,7 @@ public class Mips {
 
 	public void setRegister(String register, String value) {
 		if (isRegisterValid(register) && isValueValid(value)) {
-			this._registers.put(register, value);
+			this._registers.put(register, Utils.formatString(value, Constants.MAXIMUM_REGISTER_LENGTH));
 		}
 	}
 

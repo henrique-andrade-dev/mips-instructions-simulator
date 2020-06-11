@@ -70,31 +70,21 @@ public class Utils {
 		}
 	}
 
-	public static String sumBinary(String binary1, String binary2) {
-		int i = 0;
-		int carry = 0;
-		int[] sum = new int[10];
-		String result = "";
+	public static int hexToInt(String hex) {
+		return Integer.parseInt(hex, 16);
+	}
+
+	public static String intToHex(int value) {
+		return Integer.toHexString(value);
+	}
+
+	public static String formatString(String value, int max) {
+		String returnString = "";
 		
-		long b1 = Long.parseLong(binary1);
-		long b2 = Long.parseLong(binary2);
-
-		while (b1 != 0 || b2 != 0) {
-			sum[i++] = (int) ((b1 % 10 + b2 % 10 + carry) % 2);
-			carry = (int) ((b1 % 10 + b2 % 10 + carry) / 2);
-			b1 = b1 / 10;
-			b2 = b2 / 10;
+		for(int i = 0; i < max - value.length(); i += 1) {
+			returnString += "0";
 		}
 
-		if (carry != 0) {
-			sum[i++] = carry;
-		}
-		--i;
-
-		while (i >= 0) {
-			result += sum[i--];
-		}
-
-		return result;
+		return returnString + value;
 	}
 }

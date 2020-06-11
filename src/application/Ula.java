@@ -1,10 +1,30 @@
 package application;
 
-public class Interpreter {
-    public static void a(String funct) {
+import java.util.Arrays;
+
+import exceptions.CustomException;
+
+public class Ula {
+    private Mips _mips;
+
+    public Ula() {
+        this._mips = new Mips();
+    }
+
+    public int execute(int programCounter, String instruction) throws CustomException {
+        String[] lineItems = instruction.split("\\s+|,|\\(|\\)");
+        lineItems = Arrays.stream(lineItems).filter(s -> !s.isEmpty()).toArray(String[]::new);
+        String funct = lineItems[0];
+
         switch (funct) {
             case "addi": {
-                
+                String destination = lineItems[1];
+                String s1 = _mips.getValueRegister(lineItems[2]);
+                int constant = Integer.parseInt(lineItems[3]);
+                int value = Utils.hexToInt(s1);
+                String result = Utils.intToHex(value + constant);
+
+                this._mips.setRegister(destination, result);
                 break;
             }
 
@@ -125,5 +145,6 @@ public class Interpreter {
             default:
                 break;
         }
+        return programCounter + 4;
     }
 }
