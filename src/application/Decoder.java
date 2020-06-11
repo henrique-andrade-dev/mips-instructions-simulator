@@ -8,8 +8,6 @@ import java.util.Scanner;
 public class Decoder {
     private String _binaryInstructions;
 
-    public static final String PATH_INSTRUCTIONS_FILE = "./assets/instructions.txt";
-
     public Decoder(File inputFile) throws FileNotFoundException {
         this._binaryInstructions = setBinaryInstructions(inputFile);
     }

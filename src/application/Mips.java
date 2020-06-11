@@ -3,44 +3,45 @@ package application;
 import java.util.HashMap;
 
 public class Mips {
-	// private String[] _registers;
 	private HashMap<String, String> _registers;
 	private HashMap<String, String> _memory;
 	private String _registersFormatted;
 	private String _memoryFormatted;
 
-	public static final String PATH_REGISTER_FILE = "./assets/register.txt";
-	public static final String PATH_MEMORY_FILE = "./assets/memory.txt";
-
 	public Mips() {
-		this.setRegisters();
-		this.setMemory();
-		this.setRegistersFormatted();
-		this.setMemoryFormatted();
+		this.initializeRegisters();
+		this.initializeMemory();
+		this.initializeRegistersFormatted();
+		this.initializeMemoryFormatted();
 	}
 
-	private void setRegisters() {
+	//region Initializers
+	private void initializeRegisters() {
 		this._registers = new HashMap<String, String>();
-		this._registers.put("key", "value");
+
+		for (String key : Constants.REGISTER_KEYS) {
+			this._registers.put(key, "00000000");
+		}
 	}
 
-	private void setMemory() {
+	private void initializeMemory() {
 		this._memory = new HashMap<String, String>();
-		this._memory.put("key", "value");
 	}
 
-	private void setRegistersFormatted() {
+	private void initializeRegistersFormatted() {
 		this._registers.entrySet().forEach(kayValuePair -> {
 			this._registersFormatted += "\n" + kayValuePair.getKey() + " " + kayValuePair.getValue();
 		});
 	}
 
-	public void setMemoryFormatted() {
+	private void initializeMemoryFormatted() {
 		this._memory.entrySet().forEach(kayValuePair -> {
 			this._memoryFormatted += "\n" + kayValuePair.getKey() + " " + kayValuePair.getValue();
 		});
 	}
+	//endregion
 
+	//region Getters
 	public HashMap<String, String> getRegisters() {
 		return this._registers;
 	}
@@ -56,4 +57,41 @@ public class Mips {
 	public String getMemoryFormatted() {
 		return this._memoryFormatted;
 	}
+	//endregion
+
+	public void setRegister(String register, String value) {
+		if (isRegisterValid(register) && isValueValid(value)) {
+			this._registers.put(register, value);
+		}
+	}
+
+	public void setMemory(String address, String value) {
+		if (isAddressValid(address) && isValueValid(value)) {
+			this._memory.put(address, value);
+		}
+	}
+
+	//region Modularize
+	public boolean isRegisterValid(String register) {
+		return this._registers.containsKey(register);
+	}
+
+	public boolean isAddressValid(String address) {
+		int lineAddress = Integer.parseInt(address);
+
+		return isBetweenLimits(lineAddress) && isMultipleOf16(lineAddress);
+	}
+
+	public boolean isBetweenLimits(int lineAddress) {
+		return lineAddress >= Constants.MINIMUM_MEMORY_LINE_ADDRESS && lineAddress <= Constants.MAXIMUM_MEMORY_LINE_ADDRESS;
+	}
+
+	public boolean isMultipleOf16(int lineAddress) {
+		return lineAddress % 16 == 0;
+	}
+
+	public boolean isValueValid(String value) {
+		return value.length() <= Constants.MAXIMUM_VALUE_LENGTH;
+	}
+	//endregion
 }

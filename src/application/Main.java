@@ -14,8 +14,8 @@ public class Main {
     private static void execute(Decoder decoder, Mips mips) {
         System.out.println(decoder.getBinaryInstructions());
 
-        Utils.writeFile(Decoder.PATH_INSTRUCTIONS_FILE, decoder.getBinaryInstructions());
-        Utils.writeFile(Mips.PATH_REGISTER_FILE, mips.getRegistersFormatted());
-        Utils.writeFile(Mips.PATH_MEMORY_FILE, mips.getMemoryFormatted());
+        Utils.writeFile(Constants.PATH_INSTRUCTIONS_FILE, decoder.getBinaryInstructions());
+        Utils.writeFile(Constants.PATH_REGISTER_FILE, mips.getRegistersFormatted());
+        Utils.writeFile(Constants.PATH_MEMORY_FILE, mips.getMemoryFormatted());
     }
 }
