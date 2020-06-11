@@ -69,4 +69,32 @@ public class Utils {
 			e.printStackTrace();
 		}
 	}
+
+	public static String sumBinary(String binary1, String binary2) {
+		int i = 0;
+		int carry = 0;
+		int[] sum = new int[10];
+		String result = "";
+		
+		long b1 = Long.parseLong(binary1);
+		long b2 = Long.parseLong(binary2);
+
+		while (b1 != 0 || b2 != 0) {
+			sum[i++] = (int) ((b1 % 10 + b2 % 10 + carry) % 2);
+			carry = (int) ((b1 % 10 + b2 % 10 + carry) / 2);
+			b1 = b1 / 10;
+			b2 = b2 / 10;
+		}
+
+		if (carry != 0) {
+			sum[i++] = carry;
+		}
+		--i;
+
+		while (i >= 0) {
+			result += sum[i--];
+		}
+
+		return result;
+	}
 }

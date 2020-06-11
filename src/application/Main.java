@@ -15,7 +15,7 @@ public class Main {
         System.out.println(decoder.getBinaryInstructions());
 
         Utils.writeFile(Constants.PATH_INSTRUCTIONS_FILE, decoder.getBinaryInstructions());
-        Utils.writeFile(Constants.PATH_REGISTER_FILE, mips.getRegistersFormatted());
-        Utils.writeFile(Constants.PATH_MEMORY_FILE, mips.getMemoryFormatted());
+        // Utils.writeFile(Constants.PATH_REGISTER_FILE, mips.getRegistersFormatted());
+        // Utils.writeFile(Constants.PATH_MEMORY_FILE, mips.getMemoryFormatted());
     }
 }
