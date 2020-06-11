@@ -70,12 +70,12 @@ public class Utils {
 		}
 	}
 
-	public static int hexToInt(String hex) {
-		return Integer.parseInt(hex, 16);
+	public static Long hexToLong(String hex) {
+		return Long.parseLong(hex, 16);
 	}
 
-	public static String intToHex(int value) {
-		return Integer.toHexString(value);
+	public static String longToHex(long value) {
+		return Long.toHexString(value);
 	}
 
 	public static String formatString(String value, int max) {
@@ -86,5 +86,10 @@ public class Utils {
 		}
 
 		return returnString + value;
+	}
+
+	public static String binaryToHex(String value) {
+		int decimal = Integer.parseInt(value, 2);
+		return Integer.toString(decimal, 16);
 	}
 }

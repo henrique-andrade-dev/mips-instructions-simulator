@@ -17,7 +17,7 @@ public class Mips {
 		this.initializeMemoryFormatted();
 	}
 
-	//region Initializers
+	// region Initializers
 	private void initializeRegisters() {
 		this._registers = new HashMap<String, String>();
 
@@ -31,26 +31,35 @@ public class Mips {
 	}
 
 	private void initializeRegistersFormatted() {
-		this._registers.entrySet().forEach(kayValuePair -> {
-			this._registersFormatted += "\n" + kayValuePair.getKey() + " " + kayValuePair.getValue();
+		this._registers.entrySet().forEach(keyValuePair -> {
+			this._registersFormatted += "\n" + keyValuePair.getKey() + " " + keyValuePair.getValue();
 		});
 	}
 
 	private void initializeMemoryFormatted() {
-		this._memory.entrySet().forEach(kayValuePair -> {
-			this._memoryFormatted += "\n" + kayValuePair.getKey() + " " + kayValuePair.getValue();
+		this._memory.entrySet().forEach(keyValuePair -> {
+			this._memoryFormatted += "\n" + keyValuePair.getKey() + " " + keyValuePair.getValue();
 		});
 	}
-	//endregion
+	// endregion
 
-	//region Getters
+	// region Getters
 	public HashMap<String, String> getRegisters() {
 		return this._registers;
 	}
 
 	public String getValueRegister(String register) throws CustomException {
-		if(isRegisterValid(register)) return this._registers.get(register);
-		throw new CustomException(String.format("O registrador %s é inválido", register)); // Inserir qual registrador
+		if (isRegisterValid(register))
+			return this._registers.get(register);
+		throw new CustomException(String.format("O registrador %s é inválido", register));
+	}
+
+	public String getValueMemory(String address) throws CustomException {
+		if(!isAddressValid(address))
+		throw new CustomException(String.format("O endereço de memória 0x%s é inválido", address));
+
+		if (this._memory.containsKey(address)) return this._memory.get(address);
+		else return "00000000";
 	}
 
 	public HashMap<String, String> getMemory() {
@@ -64,41 +73,38 @@ public class Mips {
 	public String getMemoryFormatted() {
 		return this._memoryFormatted;
 	}
-	//endregion
+	// endregion
 
 	public void setRegister(String register, String value) {
-		if (isRegisterValid(register) && isValueValid(value)) {
-			this._registers.put(register, Utils.formatString(value, Constants.MAXIMUM_REGISTER_LENGTH));
+		if (isRegisterValid(register)) {
+			this._registers.put(register, Utils.formatString(value, Constants.REGISTER_LENGTH));
 		}
 	}
 
 	public void setMemory(String address, String value) {
-		if (isAddressValid(address) && isValueValid(value)) {
-			this._memory.put(address, value);
+		if (isAddressValid(address)) {
+			this._memory.put(address, Utils.formatString(value, Constants.MEMORY_LENGTH));
 		}
 	}
 
-	//region Modularize
+	// region Modularize
 	public boolean isRegisterValid(String register) {
 		return this._registers.containsKey(register);
 	}
 
 	public boolean isAddressValid(String address) {
-		int lineAddress = Integer.parseInt(address);
+		Long lineAddress = Utils.hexToLong(address);
 
-		return isBetweenLimits(lineAddress) && isMultipleOf16(lineAddress);
+		return isBetweenLimits(lineAddress) && isMultipleOf4(lineAddress);
 	}
 
-	public boolean isBetweenLimits(int lineAddress) {
-		return lineAddress >= Constants.MINIMUM_MEMORY_LINE_ADDRESS && lineAddress <= Constants.MAXIMUM_MEMORY_LINE_ADDRESS;
+	public boolean isBetweenLimits(Long lineAddress) {
+		return lineAddress >= Constants.MINIMUM_MEMORY_LINE_ADDRESS
+				&& lineAddress <= Constants.MAXIMUM_MEMORY_LINE_ADDRESS;
 	}
 
-	public boolean isMultipleOf16(int lineAddress) {
-		return lineAddress % 16 == 0;
+	public boolean isMultipleOf4(Long lineAddress) {
+		return lineAddress % 4 == 0;
 	}
-
-	public boolean isValueValid(String value) {
-		return value.length() <= Constants.MAXIMUM_VALUE_LENGTH;
-	}
-	//endregion
+	// endregion
 }

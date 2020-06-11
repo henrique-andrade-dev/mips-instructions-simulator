@@ -8,11 +8,11 @@ import exceptions.CustomException;
 public class Main {
     public static void main(String[] args) throws FileNotFoundException, CustomException {
         Decoder decoder = new Decoder(new File(Constants.PATH_INPUT_FILE));
-        // Executer executer = new Executer(new File(Constants.PATH_INPUT_FILE));
-        // executer.execute();
+        Executer executer = new Executer(new File(Constants.PATH_INPUT_FILE));
+        executer.execute();
 
         Mips mips = new Mips();
-        execute(decoder, mips);
+        // execute(decoder, mips);
     }
 
     private static void execute(Decoder decoder, Mips mips) {
