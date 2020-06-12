@@ -23,6 +23,10 @@ public class Executer {
             while (myReader.hasNextLine()) {
                 String assemblyCode = myReader.nextLine();
 
+                if (Utils.isNextLineEmpty(assemblyCode)) {
+                    continue;
+                }
+
                 this._assemblyCode.put(programCounter, assemblyCode);
 
                 programCounter += 4;

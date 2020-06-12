@@ -2,6 +2,7 @@ package application;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Arrays;
 
 public class Utils {
 	public static int tryParseInt(String lineItem) {
@@ -84,4 +85,15 @@ public class Utils {
 
 		return Long.toString(valueDecimalBase, 16);
 	}
+
+	// region Validations
+	public static boolean isNextLineEmpty(String nextLine) {
+		String[] lineItems = nextLine.split("\\s+");
+		String[] lineItemsNotEmpty = Arrays.stream(lineItems).filter(s -> !s.isEmpty()).toArray(String[]::new);
+
+		return lineItemsNotEmpty.length == 0;
+	}
+
+	
+	// endregion
 }
