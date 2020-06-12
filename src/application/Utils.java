@@ -4,21 +4,12 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class Utils {
-	// private static final Utils INSTANCE = new Utils();
-
-	// public Utils() { // If using Singleton make it private
-	// Initialize something
-	// }
-
-	// public static Utils getInstance() {
-	// return INSTANCE;
-	// }
-
 	public static int tryParseInt(String lineItem) {
 		return lineItem.matches("\\d+") ? Integer.parseInt(lineItem) : -1;
 	}
 
-	public static boolean checkIfRegister(String lineItem) {
+	// Merge with "isRegisterValid" from Mips's class
+	public static boolean isRegister(String lineItem) {
 		return !lineItem.matches("^[0-9]*$");
 	}
 
@@ -41,20 +32,26 @@ public class Utils {
 
 				return Integer.toBinaryString(tValues[lineItem.charAt(1)]);
 			}
-			default:
+			default: {
 				return returnBinaryString(Character.toString(lineItem.charAt(0)), 5);
+			}
 		}
 	}
 
 	public static String returnBinaryString(String input, int max) {
-		String binaryString = Integer.toBinaryString(Integer.parseInt(input));
-		String prefix = "";
+		String binaryInput = Integer.toBinaryString(Integer.parseInt(input));
 
-		for (int i = 0; i < max - binaryString.length(); i += 1) {
-			prefix += "0";
+		return completeWithZeros(binaryInput, max);
+	}
+
+	public static String completeWithZeros(String value, int max) {
+		String returnString = "";
+
+		for (int i = 0; i < max - value.length(); i += 1) {
+			returnString += "0";
 		}
 
-		return prefix + binaryString;
+		return returnString + value;
 	}
 
 	public static void writeFile(String pathFile, String content) {
@@ -70,6 +67,10 @@ public class Utils {
 		}
 	}
 
+	public static String intToHex(int value) {
+		return Integer.toHexString(value);
+	}
+
 	public static Long hexToLong(String hex) {
 		return Long.parseLong(hex, 16);
 	}
@@ -78,18 +79,9 @@ public class Utils {
 		return Long.toHexString(value);
 	}
 
-	public static String formatString(String value, int max) {
-		String returnString = "";
-		
-		for(int i = 0; i < max - value.length(); i += 1) {
-			returnString += "0";
-		}
-
-		return returnString + value;
-	}
-
 	public static String binaryToHex(String value) {
-		int decimal = Integer.parseInt(value, 2);
-		return Integer.toString(decimal, 16);
+		Long valueDecimalBase = Long.parseLong(value, 2);
+
+		return Long.toString(valueDecimalBase, 16);
 	}
 }

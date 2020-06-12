@@ -95,7 +95,7 @@ public class Decoder {
                             String constantBinary = ""; // valor constante
 
                             for (int i = lineItems.length - 1; i > 0; i -= 1) {
-                                if (Utils.checkIfRegister(lineItems[i])) {
+                                if (Utils.isRegister(lineItems[i])) {
                                     operatorsBinary += Utils.returnRegisterNumber(lineItems[i]);
                                 } else {
                                     constantBinary += Utils.returnBinaryString(lineItems[i], 16);

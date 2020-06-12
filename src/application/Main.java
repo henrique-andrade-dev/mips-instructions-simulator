@@ -7,18 +7,18 @@ import exceptions.CustomException;
 
 public class Main {
     public static void main(String[] args) throws FileNotFoundException, CustomException {
-        Decoder decoder = new Decoder(new File(Constants.PATH_INPUT_FILE));
-        Executer executer = new Executer(new File(Constants.PATH_INPUT_FILE));
+        File inputFile = new File(Constants.PATH_INPUT_FILE); 
+        
+        Decoder decoder = new Decoder(inputFile);
+        Executer executer = new Executer(inputFile);
         executer.execute();
-
-        Mips mips = new Mips();
-        // execute(decoder, mips);
+        
+        execute(decoder);
     }
 
-    private static void execute(Decoder decoder, Mips mips) {
-        System.out.println(decoder.getBinaryInstructions());
+    private static void execute(Decoder decoder) throws CustomException {
         Utils.writeFile(Constants.PATH_INSTRUCTIONS_FILE, decoder.getBinaryInstructions());
-        // Utils.writeFile(Constants.PATH_REGISTER_FILE, mips.getRegistersFormatted());
-        // Utils.writeFile(Constants.PATH_MEMORY_FILE, mips.getMemoryFormatted());
+        Utils.writeFile(Constants.PATH_REGISTER_FILE, Mips.getInstance().getRegistersFormatted());
+        Utils.writeFile(Constants.PATH_MEMORY_FILE, Mips.getInstance().getMemoryFormatted());
     }
 }
