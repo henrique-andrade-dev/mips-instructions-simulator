@@ -1,13 +1,9 @@
-package application;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 
-import exceptions.CustomException;
-
 public class Main {
     public static void main(String[] args) throws FileNotFoundException, CustomException {
-        File inputFile = new File(Constants.PATH_INPUT_FILE); 
+        File inputFile = new File(args[0]);
         
         Decoder decoder = new Decoder(inputFile);
         Executer executer = new Executer(inputFile);

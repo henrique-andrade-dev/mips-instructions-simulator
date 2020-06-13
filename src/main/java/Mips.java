@@ -1,9 +1,5 @@
-package application;
-
 import java.util.Arrays;
 import java.util.HashMap;
-
-import exceptions.CustomException;
 
 public class Mips {
 	private static Mips INSTANCE = new Mips();

@@ -1,11 +1,7 @@
-package application;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Scanner;
-
-import exceptions.CustomException;
 
 public class Executer {
     private HashMap<Integer, String> _assemblyCode;
@@ -46,10 +42,10 @@ public class Executer {
             String codeLine = this._assemblyCode.get(programCounter);
 
             programCounter = Mips.getInstance().execute(programCounter, codeLine);
-    
+
             if (!this._assemblyCode.containsKey(programCounter)) {
                 ended = true;
-            }            
+            }
         } while (!ended);
     }
 }

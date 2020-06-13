@@ -1,5 +1,3 @@
-package application;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Arrays;
@@ -17,7 +15,6 @@ public class Decoder {
 
         try {
             Scanner myReader = new Scanner(inputFile);
-
             while (myReader.hasNextLine()) {
                 String line = myReader.nextLine();
                 String[] lineItems = line.split("\\s+|,|\\(|\\)");

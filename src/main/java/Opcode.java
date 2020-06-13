@@ -1,5 +1,3 @@
-package application;
-
 import java.util.HashMap;
 
 public class Opcode {
