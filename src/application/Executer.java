@@ -23,7 +23,7 @@ public class Executer {
             while (myReader.hasNextLine()) {
                 String assemblyCode = myReader.nextLine();
 
-                if (Utils.isNextLineEmpty(assemblyCode)) {
+                if (Utils.isEmptyOrSpaces(assemblyCode)/* || Utils.isCommentLine(assemblyCode)*/) {
                     continue;
                 }
 
@@ -44,6 +44,7 @@ public class Executer {
 
         do {
             String codeLine = this._assemblyCode.get(programCounter);
+
             programCounter = Mips.getInstance().execute(programCounter, codeLine);
     
             if (!this._assemblyCode.containsKey(programCounter)) {

@@ -86,14 +86,23 @@ public class Utils {
 		return Long.toString(valueDecimalBase, 16);
 	}
 
-	// region Validations
-	public static boolean isNextLineEmpty(String nextLine) {
-		String[] lineItems = nextLine.split("\\s+");
-		String[] lineItemsNotEmpty = Arrays.stream(lineItems).filter(s -> !s.isEmpty()).toArray(String[]::new);
+	public static String[] getStringArrayEmptyAndSpacesFiltered(String value) {
+		String[] lineItems = value.split("\\s+");
 
-		return lineItemsNotEmpty.length == 0;
+		return Arrays.stream(lineItems).filter(s -> !s.isEmpty()).toArray(String[]::new);
 	}
 
-	
+	// region Validations
+	public static boolean isEmptyOrSpaces(String value) {
+		String[] valueFiltered = getStringArrayEmptyAndSpacesFiltered(value);
+
+		return valueFiltered.length == 0;
+	}
+
+	// public static boolean isCommentLine(String value) {
+	// 	String[] valueFiltered = getStringArrayEmptyAndSpacesFiltered(value);
+
+	// 	return valueFiltered.length != 0 ? String.join("", valueFiltered).charAt(0) == Constants.COMMENT_SYMBOL : false; // Use .matches with string "//"
+	// }
 	// endregion
 }
