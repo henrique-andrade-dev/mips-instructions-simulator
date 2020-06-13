@@ -1,5 +1,3 @@
-package application;
-
 public class Constants {
     public static final String PATH_INPUT_FILE = "./assets/input.txt";
 
