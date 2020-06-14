@@ -1,3 +1,4 @@
 Links.txt
 /assets
-build/
+build/**
+.gradle/**
